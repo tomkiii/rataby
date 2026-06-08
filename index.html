@@ -993,6 +993,51 @@
       font-size: var(--text-xs);
       color: rgba(255,255,255,0.35);
     }
+
+    
+  /* ===== NAVBAR MOBILE ===== */
+    @media (max-width: 768px) {
+  .navbarinner {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbarnav {
+    display: none;
+  }
+
+  .navbarphone {
+    display: none;
+  }
+
+  .navbarhamburger, .navbar__hamburger {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .mobile-menu.open {
+    display: flex;
+  }
+
+  .mobile-menu a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .mobile-menu .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
   </style>
 </head>
 <body>

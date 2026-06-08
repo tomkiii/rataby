@@ -1763,6 +1763,14 @@
       e.target.querySelectorAll('input,textarea,select,button[type=submit]')
         .forEach(el => el.disabled = true);
     }
+
+    // Zobrazenie uvodu nie ine
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.addEventListener('load', () => {
+    window.scrollTo(0, 0);
+  });
   </script>
 </body>
 </html>

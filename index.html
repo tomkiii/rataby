@@ -1038,6 +1038,38 @@
     justify-content: center;
   }
 }
+
+.navbarhamburger, .navbar__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 32px;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.navbarhamburger span, .navbar__hamburger span {
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--navy);
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .navbarnav {
+    display: none;
+  }
+
+  .navbarphone {
+    display: none;
+  }
+
+  .navbarhamburger, .navbar__hamburger {
+    display: flex;
+    margin-left: auto;
+  }
+}
   </style>
 </head>
 <body>

@@ -475,13 +475,15 @@
 
     /* ===== SERVICES ===== */
     .services {
-      padding: clamp(var(--space-4), 2.5vw, var(--space-8)) 0;
+      padding-top: clamp(var(--space-4), 2.5vw, var(--space-8));
+      padding-bottom: var(--space-20);
       background: var(--off-white);
     }
     .services__grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-6);
+      column-gap: var(--space-6);
+      row-gap: var(--space-12);
     }
     @media (max-width: 900px) {
       .services__grid { grid-template-columns: repeat(2, 1fr); }
@@ -1070,6 +1072,80 @@
     margin-left: auto;
   }
 }
+
+    /* ===== HERO SERVICE PILLS ===== */
+    .hero__service-pills {
+      margin-bottom: var(--space-8);
+    }
+    .hero__pills-label {
+      display: block;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: var(--space-3);
+    }
+    .hero__pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .hero__pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 1rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      color: rgba(255,255,255,0.88);
+      font-family: 'Nunito', sans-serif;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: all var(--transition);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .hero__pill:hover {
+      background: var(--yellow);
+      border-color: var(--yellow);
+      color: var(--navy-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(245,208,32,0.35);
+    }
+    @media (max-width: 560px) {
+      .hero__pills-row {
+        gap: 0.5rem;
+      }
+      .hero__pill {
+        font-size: 0.7rem;
+        padding: 0.45rem 0.8rem;
+      }
+    }
+
+
+    /* ===== SERVICE CARD HIGHLIGHT (from hero pills) ===== */
+    .service-card {
+      transition: transform 350ms cubic-bezier(0.16,1,0.3,1),
+                  box-shadow 350ms cubic-bezier(0.16,1,0.3,1),
+                  border-color 350ms ease;
+    }
+    .service-card__icon {
+      transition: background 350ms ease;
+    }
+    .service-card--highlighted {
+      border-color: var(--yellow) !important;
+      box-shadow: 0 0 0 4px var(--yellow), 0 12px 40px rgba(245,208,32,0.25), var(--shadow-lg) !important;
+      transform: translateY(-6px) !important;
+    }
+    .service-card--highlighted .service-card__icon {
+      background: var(--yellow) !important;
+    }
+
   </style>
 </head>
 <body>
@@ -1168,15 +1244,34 @@
           Domácnosti, kancelárie aj spoločné priestory —
           čisto, spoľahlivo a diskrétne.
         </p>
-        <div class="hero__actions reveal">
-          <a href="#kontakt" class="btn btn-primary">
-            <i data-lucide="calendar-check" style="width:18px;height:18px;"></i>
-            Objednať upratovanie
-          </a>
-          <a href="#sluzby" class="btn btn-outline">
-            <i data-lucide="list" style="width:18px;height:18px;"></i>
-            Zobraziť služby
-          </a>
+        <div class="hero__service-pills reveal">
+          <span class="hero__pills-label">Naše služby:</span>
+          <div class="hero__pills-row">
+            <button class="hero__pill" onclick="goToService('sluzba-domacnosti', event)">
+              <i data-lucide="home" style="width:15px;height:15px;"></i>
+              Domácnosti
+            </button>
+            <button class="hero__pill" onclick="goToService('sluzba-kancelarie', event)">
+              <i data-lucide="building-2" style="width:15px;height:15px;"></i>
+              Firmy a kancelárie
+            </button>
+            <button class="hero__pill" onclick="goToService('sluzba-priestory', event)">
+              <i data-lucide="layers" style="width:15px;height:15px;"></i>
+              Nebytové spoločné priestory
+            </button>
+            <button class="hero__pill" onclick="goToService('sluzba-tepovanie', event)">
+              <i data-lucide="sofa" style="width:15px;height:15px;"></i>
+              Tepovanie
+            </button>
+            <button class="hero__pill" onclick="goToService('sluzba-rekonstrukcia', event)">
+              <i data-lucide="construction" style="width:15px;height:15px;"></i>
+              Upratovanie po rekonštrukcii
+            </button>
+            <button class="hero__pill" onclick="goToService('sluzba-okna', event)">
+              <i data-lucide="sparkles" style="width:15px;height:15px;"></i>
+              Umývanie okien
+            </button>
+          </div>
         </div>
         <div class="hero__trust reveal">
           <div class="hero__trust-item">
@@ -1264,7 +1359,7 @@
 
       <div class="services__grid">
 
-        <div class="service-card reveal">
+        <div class="service-card reveal" id="sluzba-domacnosti">
           <div class="service-card__icon">
             <i data-lucide="home" style="width:28px;height:28px;"></i>
           </div>
@@ -1283,8 +1378,7 @@
           </a>
         </div>
 
-        <div class="service-card service-card--featured reveal">
-          <div class="service-card__badge">Najpopulárnejšie</div>
+        <div class="service-card reveal" id="sluzba-kancelarie">
           <div class="service-card__icon">
             <i data-lucide="building-2" style="width:28px;height:28px;"></i>
           </div>
@@ -1303,7 +1397,7 @@
           </a>
         </div>
 
-        <div class="service-card reveal">
+        <div class="service-card reveal" id="sluzba-priestory">
           <div class="service-card__icon">
             <i data-lucide="layers" style="width:28px;height:28px;"></i>
           </div>
@@ -1321,7 +1415,7 @@
           </a>
         </div>
 
-        <div class="service-card reveal">
+        <div class="service-card reveal" id="sluzba-tepovanie">
           <div class="service-card__icon">
             <i data-lucide="sofa" style="width:28px;height:28px;"></i>
           </div>
@@ -1340,7 +1434,7 @@
           </a>
         </div>
 
-        <div class="service-card reveal">
+        <div class="service-card reveal" id="sluzba-rekonstrukcia">
           <div class="service-card__icon">
             <i data-lucide="construction" style="width:28px;height:28px;"></i>
           </div>
@@ -1359,7 +1453,7 @@
           </a>
         </div>
 
-        <div class="service-card reveal">
+        <div class="service-card reveal" id="sluzba-okna">
           <div class="service-card__icon">
             <i data-lucide="sparkles" style="width:28px;height:28px;"></i>
           </div>
@@ -1861,6 +1955,37 @@
       document.getElementById('formSuccess').style.display = 'flex';
       e.target.querySelectorAll('input,textarea,select,button[type=submit]')
         .forEach(el => el.disabled = true);
+    }
+
+
+
+    // Navigate to service card and highlight it
+    function goToService(id, e) {
+      if (e) e.preventDefault();
+
+      const card = document.getElementById(id);
+      if (!card) return;
+
+      // Clear any previous highlights
+      document.querySelectorAll('.service-card--highlighted').forEach(el => {
+        el.classList.remove('service-card--highlighted');
+      });
+      if (window._highlightTimer) clearTimeout(window._highlightTimer);
+      if (window._highlightOff) clearTimeout(window._highlightOff);
+
+      // Scroll to card
+      const navbarHeight = document.getElementById('navbar').offsetHeight;
+      const cardTop = card.getBoundingClientRect().top + window.scrollY - navbarHeight - 24;
+      window.scrollTo({ top: cardTop, behavior: 'smooth' });
+
+      // After scroll settles: fade IN highlight (CSS transition handles smoothness)
+      window._highlightTimer = setTimeout(() => {
+        card.classList.add('service-card--highlighted');
+        // Fade OUT after 2.8s — again CSS transition is smooth
+        window._highlightOff = setTimeout(() => {
+          card.classList.remove('service-card--highlighted');
+        }, 1200);
+      }, 500);
     }
 
     // Zobrazenie uvodu nie ine
